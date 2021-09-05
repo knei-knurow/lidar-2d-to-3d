@@ -1,0 +1,15 @@
+[submodule "lidar-avr"]
+	path = lidar-avr
+	url = https://github.com/knei-knurow/lidar-avr
+[submodule "lidar-scan"]
+	path = lidar-scan
+	url = https://github.com/knei-knurow/lidar-scan
+[submodule "lidar-vis"]
+	path = lidar-vis
+	url = https://github.com/knei-knurow/lidar-vis
+[submodule "lidar-visualizations"]
+	path = lidar-visualizations
+	url = https://github.com/knei-knurow/lidar-visualizations
+[submodule "lidar-tools"]
+	path = lidar-tools
+	url = https://github.com/knei-knurow/lidar-tools
