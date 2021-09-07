@@ -1,19 +1,25 @@
 # Lidar 2D to 3D
 Projekt polega na stworzeniu i oprogramowaniu urządzenia zdolnego do skanowania otaczającej go przestrzeni w 3D. Do tego celu wykorzystany jest m.in. lidar skanujący płaszczyznę 2D, głowica własnego projektu oraz pomocnicze elementy.
 
-## Spis treści
+# Spis treści
 
-## Spis submodułów
+# Galeria
 
-W tym repozytorium pod jednym dachem zebrane są repozytoria z przedrostkiem *lidar-* rozwijane w ramach [KNEI](https://github.com/knei-knurow), które mają mniejszy lub większy związek ze skanowaniem 3D.
+## 3D
 
-**Gwiazdka (*) oznacza repozytoria, które są wymagane do skanowania 3D.**
+## 2D
 
-### lidar-tools*
+# Spis submodułów
+
+W tym repozytorium pod jednym dachem zebrane są repozytoria z przedrostkiem *lidar-* rozwijane w ramach [KNEI](https://github.com/knei-knurow), które mają mniejszy lub większy związek ze skanowaniem 3D. Więcej informacji na każdy z projektów można znaleźć w ich wnętrzu w plikach README.
+
+**Gwiazdka * oznacza repozytoria, które są wymagane do skanowania 3D.** Pozostałe projekty mogą się przydać podczas zabawy ze skanowaniem 2D.
+
+## lidar-tools*
 
 Zbiór *narzędzi* przydatnych podczas pracy z lidarem. 
 
-#### sync*
+### sync*
 
 Najważniejsze z *narzędzi*. Do jego zadań należy:
 
@@ -22,21 +28,21 @@ Najważniejsze z *narzędzi*. Do jego zadań należy:
 - Obliczanie punktów chmury 3D.
 - Wypisywanie punkt po punkcie (x, y, z) na standardowe wyjście (stdout).
 
-#### servoctl
+### servoctl
 
 Skrypt pozwalający na wysłanie do mikrokontrolera ramki danych ustawiających serwo na zadanej pozycji.
 
-#### receiver/transmitter
+### transmitter/receiver
 
 Umożliwiają transmisję danych lidaru 2D (uzyskane np. za pomocą *lidar-scan*) poprzez UDP.
 
-#### scan-dummy 
+### scan-dummy 
 
 Program udający lidar-scan generujący przykładowe dane.
 
 **Autorzy:** [Szymon Bednorz](https://github.com/github.com/dsonyy), [Bartek Pacia](https://github.com/github.com/bartekpacia)
 
-### lidar-avr*
+## lidar-avr*
 
 Oprogramowanie przeznaczone do kompilacji na mikrokontroler AVR Atmega328p, którego zadaniem jest obsługa serwa i akcelerometru oraz komunikacja poprzez USART z urządzeniem operatora. 
 
@@ -44,7 +50,7 @@ Więcej o dokładnej konfiguracji i działaniu w odpowiedniej sekcji tego dokume
 
 **Autorzy:** [Szymon Bednorz](https://github.com/github.com/dsonyy), [Bartek Pacia](https://github.com/github.com/bartekpacia)
 
-### lidar-scan*
+## lidar-scan*
 
 Projekt wywodzący się z *lidar-visualizations.* Pomysł polegał na stworzeniu programu, który specjalizuje się w jednym konkretnym zastosowaniu i robi je dobrze ([Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)).
 
@@ -71,7 +77,7 @@ Zgodny z systemami Linux, macOS, Windows.
 
 **Autorzy:** [Szymon Bednorz](https://github.com/github.com/dsonyy), [Bartek Pacia](https://github.com/github.com/bartekpacia)https://github.com/github.com/bartekpacia)
 
-### lidar-vis
+## lidar-vis
 
 Projekt wywodzący się z *lidar-visualizations*. Jest to "siostrzany" program do *lidar-scan –* robi jedną rzecz i robi ją dobrze ([Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)). 
 
@@ -81,7 +87,7 @@ Zgodny z systemami Linux, macOS, Windows.
 
 **Autorzy:** [Szymon Bednorz](https://github.com/github.com/dsonyy) [Bartek Pacia](https://github.com/bartekpacia)
 
-### lidar-visualizations
+## lidar-visualizations
 
 Program umożliwia odczyt i wizualizację danych z lidaru w czasie rzeczywistym.
 
@@ -93,11 +99,55 @@ Więcej informacji można przeczytać w artykule: [Elektronika Praktyczna "Wizua
 
 **Autor:** [Szymon Bednorz](https://github.com/github.com/dsonyy)
 
-### lidar-stm32
+## lidar-stm32
 
 Ciekawy projekt, który podobnie jak *lidar-visualizations*, stworzony został na potrzeby "Elektroniki Praktycznej". Uruchamiany jest na płytce STM32, która za pomocą UART wysyła/odbiera dane do/z lidaru, a następnie je wizualizuje. W przeciwieństwie do *lidar-visualizations* nie korzysta z RPLIDAR SDK, które nie jest przystosowane do tego typu urządzeń, tylko z własnych funkcji stworzonych z wzór tych z SDK.
 
 Więcej informacji można przeczytać w artykule: [Elektronika Praktyczna "Wizualizacja pomiarów skanera LIDAR" (marzec 2021)](https://ep.com.pl/kursy/notatnik-konstruktora/14763-wizualizacja-pomiarow-skanera-lidar)
 
 **Autor:** [Bartek Dudek](https://github.com/github.com/doodek)
+
+# Spis elementów
+
+## Lidar
+
+## Serwomechanizm
+
+## Akcelerometr
+
+## Mikrokontroler
+
+## Głowica
+
+# Skanowanie 3D
+
+## Hardware - konfiguracja
+
+## Software - konfiguracja
+
+## Parametry skanowania
+
+## Skanowanie
+
+# Materiały 
+
+## Oprogramowanie pomocnicze
+
+Oprogramowanie, które powstało jako pomoc podczas pracy nad projektami. Są to proste programy/skrypty realizujące jedno zadanie.
+
+### accel-read
+
+### accel-plot
+
+### angle-visualization
+
+### pipeline
+
+### [attestimator](https://github.com/knei-knurow/attestimator)
+
+## Chmury punktów
+
+### 3D
+
+### 2D
 
