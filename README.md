@@ -3,6 +3,40 @@ Projekt polega na stworzeniu i oprogramowaniu urządzenia zdolnego do skanowania
 
 # Spis treści
 
+- [Galeria]()
+  - [2D]()
+  - [3D]()
+- [Spis submodułów]()
+  - [lidar-tools*]()
+    - [sync*]()
+    - [servoctl]()
+    - [receiver/transmitter]()
+    - [scan-dummy]()
+  - [lidar-avr*]()
+  - [lidar-scan*]()
+  - [lidar-vis]()
+  - [lidar-visualization]()
+  - [lidar-stm32]()
+
+- [Spis elementów]()
+  - [Lidar]()
+    - [Specyfikacja]()
+    - [Źródła]()
+    - [Tryby skanowania]()
+    - [Dane]()
+    - [Pomiary szybkości silnika lidaru]()
+    - [Ogólne pomiary rezultatów lidaru]()
+  - [Serwomechanizm]()
+  - [IMU]()
+    - [MPU-6050]()
+    - [MPU-9250]()
+    - [Kalibracja]()
+    - [DMP]()
+  - [Mikrokontroler]()
+  - [Głowica]()
+    - [Prototyp]()
+    - [Wersja finalna]()
+
 # Galeria
 
 ## 3D
