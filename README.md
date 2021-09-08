@@ -1,5 +1,5 @@
 # Lidar 2D to 3D
-Projekt polega na stworzeniu i oprogramowaniu urządzenia zdolnego do skanowania otaczającej go przestrzeni w 3D. Do tego celu wykorzystany jest m.in. lidar skanujący płaszczyznę 2D, głowica własnego projektu oraz pomocnicze elementy.
+Projekt polega na stworzeniu i oprogramowaniu urządzenia zdolnego do skanowania otaczającej go przestrzeni w 3D. Do tego celu wykorzystany jest m.in. lidar skanujący płaszczyznę 2D, głowica własnego projektu oraz inne pomocnicze elementy.
 
 # Spis treści
 
@@ -75,7 +75,7 @@ Zgodny z systemami Linux, macOS, Windows.
 ! 2 500
 ```
 
-**Autorzy:** [Szymon Bednorz](https://github.com/github.com/dsonyy), [Bartek Pacia](https://github.com/github.com/bartekpacia)https://github.com/github.com/bartekpacia)
+**Autorzy:** [Szymon Bednorz](https://github.com/github.com/dsonyy), [Bartek Pacia](https://github.com/github.com/bartekpacia)
 
 ## lidar-vis
 
@@ -111,13 +111,110 @@ Więcej informacji można przeczytać w artykule: [Elektronika Praktyczna "Wizua
 
 ## Lidar
 
+Wykorzystywany w projekcie lidar to [Slamtec RPLIDAR A3](https://www.slamtec.com/en/Lidar/A3Spec). Producent dostarcza także [RPLIDAR SDK](https://github.com/Slamtec/rplidar_sdk) wspierające systemy Windows i macOS, które pozwala na sprawne rozpoczęcie pracy ze sprzętem.
+
+Lidar posiada swoje własne zasilanie, oraz własny przewód USB (do transmisji danych) do urządzenia operatora.
+
+### Specyfikacja
+
+| Wielkość                        | A3         |
+| ------------------------------- | ---------- |
+| Zakres pomiarów                 | do 25m     |
+| Częstotliwość pomiarów          | do 16kHz   |
+| Częstotliwość wykonywania chmur | 5Hz - 20Hz |
+| Rozdzielczość kątowa            | do 0.225°  |
+| Interfejs komunikacji           | TTL UART   |
+| Prędkość komunikacji            | 256000bps  |
+
+### Źródła
+
+- [RPLIDAR A3](https://www.slamtec.com/en/Lidar/A3)
+- [SDK GitHub](https://github.com/Slamtec/rplidar_sdk)
+- [RPLIDAR A3 User Manual](https://download.kamami.pl/p573426-LM310_SLAMTEC_rplidarkit_usermanual_A3M1_v1.0_en.pdf)
+- [RPLIDAR A3 Introduction and Datasheet](https://download.kamami.pl/p573426-LD310_SLAMTEC_rplidar_datasheet_A3M1_v1.3_en.pdf)
+
+### Tryby skanowania
+
+RPLIDAR oferuje kilka trybów skanowania. Godne uwagi są tylko dwa: domyślny sensitivity (indoor) i stability (outdoor). Podczas pracy na zewnątrz, szczególnie w bardzo słoneczne dni, wyraźnie widać różnicę w ilości poprawnie wykonanych pomiarów. Pozostałe tryby istnieją dla kompatybilności wstecznej z poprzednimi generacjami urządzenia i/lub wymagają niższego baudrate'u podczas transmisji danych.
+
+| ID   | Scan mode                         | Sample time [us] | Frequency |
+| ---- | --------------------------------- | ---------------- | --------- |
+| 0    | Standard                          | 252              | 0.484406  |
+| 1    | Express                           | 126              | 0.968812  |
+| 2    | Boost                             | 63               | 1.93762   |
+| 3    | **Sensitivity/Indoor (domyślny)** | 63               | 1.93762   |
+| 4    | **Stability/Outdoor**             | 100              | 1.2207    |
+
 ## Serwomechanizm
 
-## Akcelerometr
+Serwomechanizm odpowiada za obrót płaszczyzny, która jest skanowana przez lidar. Sterowane jest ono sygnałem PWM za pomocą mikrokontrolera. 
+
+Wymaga własnego zasilania. Sygnał PWM nadawany jest przez mikrokontroler.
+
+## IMU
+
+IMU (ang. inertial measurement unit) to urządzenie służące do nawigacji inercyjnej wyposażone w akcelerometr i żyroskop. Układ wykorzystywany przez nas to **MPU-6050** o 6 stopniach swobody (akcelerometr X, Y, Z i żyroskop X, Y, Z). W początkowej fazie rozwoju projektu zauważono, że konstrukcja składająca się z samego lidaru i serwa może być podatna na niedokładności spowodowane tym, że:
+
+- konstrukcja podczas ruchu mogłaby być mniej lub bardziej przechylana w każdą ze stron podczas skanowania,
+- wykorzystywany przez nas serwomechanizm ma ograniczoną dokładność.
+
+Oba problemy miały zostać rozwiązane przez IMU, które dostarczałoby w czasie rzeczywistym danych dotyczących aktualnego przechylenia/obrotu płaszczyzny skanowania. 
+
+Niestety wyniki z wykorzystujące opisane IMU i metody szacowania obrotu płaszczyzny okazują się jeszcze bardziej niedokładne, niż wykorzystywanie samego lidaru i serwa. Powodów należy szukać w szacowaniu pozycji, które polega na ciągłym aktualizowaniu stanu, opierającego się na poprzednich pomiarach. W ten sposób bardzo szybko rośnie błąd, który sprawia, że dwa skany tej samej sceny mogą mocno różnić się od siebie.
+
+Projekt w wersji finalnej przygotowany jest do pracy **z** jak i **bez** IMU. Dla lepszych rezultatów zalecane jest niekorzystanie z IMU. Jeżeli zamierza się ruszać konstrukcją podczas skanowania, można zdecydować się jego wykorzystanie, chociaż ma się wtedy do czynienia z rosnącym błędem.
+
+### MPU-6050
+
+Podstawową funkcjonalnością urządzenia jest wykorzystywanie 3-osiowego akcelerometru i żyroskopu. W ten sposób otrzymujemy strumień *surowych* pomiarów składających się z sześciu 2-bajtowych liczb zmiennoprzecinkowych w opisanej w dokumentacji skali. Moduł komunikuje się interfejsem I2C.
+
+[MPU-6050 w bazie i2cdevlib](https://www.i2cdevlib.com/devices/mpu6050#links)
+
+### MPU-9250
+
+Moduł całkowicie kompatybilny z MPU-6050. Różnicą jest posiadanie dodatkowo 3-osiowego magnetometru, który wymaga specjalnej kalibracji. Magnetometr aktualnie nie jest wykorzystywany w projekcie.
+
+### Kalibracja
+
+Kalibracja MPU-6050 polega na ustawieniu go na możliwie płaskiej powierzchni, wykonanie serii pomiarów (po 6 wartości na pomiar), obliczenie ich średniej i zapisanie wyników. Należy też uwzględnić przyspieszenie grawitacyjne, które powinno być wyraźnie widoczne na jednej z osi.
+
+Program *lidar-tools/sync* wykonuje kalibrację automatycznie przed rozpoczęciem skanowania (jeżeli korzystamy z IMU).
+
+### DMP
+
+Ciekawą częścią MPU jest moduł DMP (Digital Motion Processor), którym chwali się producent, ale jednocześnie oficjalne dokumentacje całkowicie pomijają jego istnienie. W internecie znaleźć można liczne nieoficjalne dyskusje i biblioteki próbujące wykorzystywać jego funkcjonalności. Do jednej z wielu (w tym dalej nieodkrytych) funkcjonalności należy szacowanie obrotu na podstawie *surowych* danych (obliczanie kwaternionu)
+
+### Dalsza obróbka danych
+
+MPU-6050 dostarcza sześć 2-bajtowych zmiennoprzecinkowych wartości w każdym *surowym* pomiarze. Dane mogą być zwizualizowane na wykresie i odpowiadają ruchom i obrotom urządzenia - [film z wizualizacją](https://youtu.be/J4pH3LHojVM).
+
+<img height=300 src="https://raw.githubusercontent.com/dsonyy/python-stuff/master/accelerometer-live-plot/example.png">
+
+*Surowe* dane następnie są przekazywane estymatora pozycji (ang. attitude estimator), który aktualizowany jest o kolejne wartości. Jako wynik estymator zwraca kwaternion - obiekt matematyczny składającą się z 4 liczb zmiennoprzecinkowych (w, x, y, z), które mogą zostać zinterpretowane jako obrót.
+
+Następnie, płaszczyzny 2D zawierające pomiary (x, y) uzyskane z lidaru są obracane w trzecim wymiarze o obliczony kwaternion. Pomiary lidaru przekształcone względem pomiarów IMU są wtedy gotowe.  
 
 ## Mikrokontroler
 
+Wykorzystywany w projekcie mikrokontroler to Atmega328p. Oprogramowanie, które powinno się na nim znaleźć znajduje się w repozytorium *lidar-avr*. Odpowiada ono za:
+
+- sterowanie sygnałem PWM w celu kontroli serwomechanizmu,
+- komunikacja poprzez I2C z MPU-6050 (lub MPU-9250),
+- komunikacja z komputerem operatora (odbieranie/wysyłanie ramek danych).
+
+Na poniższym schemacie znajduje się domyślne połączenie przewodów i elementów projektu (wykorzystana została płytka Arduino UNO, ale mikrokontroler jest programowany bezpośrednio):
+
+TODO
+
 ## Głowica
+
+Mechaniczna konstrukcja na której zamontowane są poszczególne elementy projektu. 
+
+### Prototyp
+
+### Wersja finalna
+
+Konstrukcja zaprojektowana w programie Autodesk Fusion 360 i wydrukowana w technologii 3D.
 
 # Skanowanie 3D
 
