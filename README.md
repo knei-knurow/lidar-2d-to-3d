@@ -17,7 +17,6 @@ Projekt polega na stworzeniu i oprogramowaniu urządzenia zdolnego do skanowania
   - [lidar-vis]()
   - [lidar-visualization]()
   - [lidar-stm32]()
-
 - [Spis elementów]()
   - [Lidar]()
     - [Specyfikacja]()
