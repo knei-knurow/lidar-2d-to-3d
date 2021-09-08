@@ -35,6 +35,15 @@ Projekt polega na stworzeniu i oprogramowaniu urządzenia zdolnego do skanowania
   - [Głowica]()
     - [Prototyp]()
     - [Wersja finalna]()
+- [Skanowanie 3D]()
+  - [Obróbka surowych pomiarów IMU]()
+- [Konfiguracja]()
+  - [Hardware]()
+  - [Software]()
+    - [Parametry *lidar-tools/sync*]()
+- [Materiały dodatkowe]()
+  - [Oprogramowanie pomocnicze]()
+  - [Przykłady chmur punktów]()
 
 # Galeria
 
@@ -274,23 +283,77 @@ Konstrukcja zaprojektowana w programie Autodesk Fusion 360 i wydrukowana w techn
 
 # Skanowanie 3D
 
-### Dalsza obróbka danych
+Pomysł skanowania 3D polega na zbieraniu danych z kilku źródeł i łączeniu ich w przemyślany sposób.
 
-MPU-6050 dostarcza sześć 2-bajtowych zmiennoprzecinkowych wartości w każdym *surowym* pomiarze. Dane mogą być zwizualizowane na wykresie i odpowiadają ruchom i obrotom urządzenia - [film z wizualizacją](https://youtu.be/J4pH3LHojVM).
+Najważniejszym urządzeniem jest lidar, który po uruchomieniu jest w stanie generować kilka chmur punktów na sekundę. Punkty reprezentowane są w postaci par (kąt, odległość) w jednostkach [stopnie, milimetry].
+
+Kolejnym istotnym elementem jest serwomechanizm. Znana jest zadana przez nas pozycja na jaką ma się ustawić. W tym celu wykorzystywana jest wewnętrzna jednostka, która może zostać przeliczona na stopnie.
+
+Ostatnim (ale opcjonalnym) elementem jest IMU, który dostarczać może pomiary w postaci 3 wartości (x, y, z) akcelerometru, 3 wartości (x, y, z) żyroskopu.
+
+Program **lidar-tools/sync** po uruchomieniu na urządzeniu operatora:
+
+1. tworzy subproces i uruchamia program **lidar-scan**, który łączy się z podłączonym do urządzenia operatora lidarem;
+   uruchamia pętlę odbierająca od lidar-scan pomiary **lidaru**,
+2. łączy się z mikrokontrolerem, na którym powinien znajdować się program **lidar-avr**.
+3. uruchamia pętlę wysyłającą rozkazy do mikrokontrolera sterującą **serwomechanizmem**.
+4. uruchamia (opcjonalnie) pętlę odbierająca od mikrokontrolera pomiary **IMU**.
+
+Pomiary IMU i zadane pozycje serwomechanizmu są gromadzone w buforach wraz z czasem, w którym są one prawdziwe. Dla każdej odebranej chmury punktów lidaru, bufory są przeszukiwane w poszukiwaniu najlepiej pasującego czasowo pomiaru IMU lub zadanej pozycji serwomechanizmu. Metoda jaka zostanie obrana zależy od użytkownika, innymi słowy czy użytkownik zdecyduje się na wykorzystywanie IMU czy też nie. 
+
+Następnie dokonywane są obliczenia wskutek których powstać powinna grupa gotowych punktów wypisanych na standardowe wyjście (stdout). 
+
+### Obróbka surowych pomiarów IMU
+
+MPU-6050 dostarcza sześć 2-bajtowych zmiennoprzecinkowych wartości w każdym *surowym* pomiarze. Aby zrozumieć dane, można je łatwo zwizualizować na wykresie. Będą one odpowiadały ruchom i obrotom urządzenia - [film z wizualizacją](https://youtu.be/J4pH3LHojVM). 
+
+**Przykładowy wykres:**
 
 <img height=300 src="https://raw.githubusercontent.com/dsonyy/python-stuff/master/accelerometer-live-plot/example.png">
 
-*Surowe* dane następnie są przekazywane estymatora pozycji (ang. attitude estimator), który aktualizowany jest o kolejne wartości. Jako wynik estymator zwraca kwaternion - obiekt matematyczny składającą się z 4 liczb zmiennoprzecinkowych (w, x, y, z), które mogą zostać zinterpretowane jako obrót.
+*Surowe* dane po odebraniu przez *lidar-tools/sync* są przekazywane estymatora pozycji (ang. attitude estimator), który aktualizowany jest o kolejne wartości. Jako wynik estymator zwraca kwaternion - obiekt matematyczny składającą się z 4 liczb zmiennoprzecinkowych (w, x, y, z), które mogą zostać zinterpretowane jako obrót obiektu.
 
-Następnie, płaszczyzny 2D zawierające pomiary (x, y) uzyskane z lidaru są obracane w trzecim wymiarze o obliczony kwaternion. Pomiary lidaru przekształcone względem pomiarów IMU są wtedy gotowe.  
+# Konfiguracja
 
-## Hardware - konfiguracja
+## Hardware
 
-## Software - konfiguracja
+1. Mikrokontroler powinien być podłączony do urządzenia operatora, aby umożliwić komunikację USART.
+2. Serwomechanim powinien być połączony do zasilania oraz mikrokontrolera w sposób przedstawiony na schemacie (TODO).
+3. (Opcjonalnie) IMU (MPU-6050 lub kompatybilne MPU-9250) powinno być podłączone do mikrokontrolera w sposób przedstawiony na schemacie (TODO).
+4. Lidar powinien być podłączony do stabilnego źródła zasilania i do urządzenia operatora. 
 
-## Parametry skanowania
+## Software
 
-## Skanowanie
+**Na mikrokontrolerze** powinien być zaflashowany program *lidar-avr*.
+
+**Na urządzeniu operatora** powinien znaleźć się:
+
+- *lidar-tools/sync*
+- *lidar-scan*
+
+Następnie można przystąpić do konfiguracji *lidar-tools/sync*. Wszystkie dostępne parametry programu należy dostrajać korzystając z argumentów wiersza poleceń. Ich liczba może być spora, dlatego wygodnie jest przygotować skrypt, który uruchomi *lidar-tools/sync* przekazując mu odpowiednie parametry (jak np. *sync.ps1* znajdujący się w głównym repozytorium projektu *lidar-tools*). 
+
+### Parametry *lidar-tools/sync*
+
+| Parametr      | Opis                                                         | Uwagi                                   |
+| ------------- | ------------------------------------------------------------ | --------------------------------------- |
+| avrport       | port, przez który odbywa się komunikacja z mikrokontrolerem  |                                         |
+| avrbaud       | baudrate, z którego korzysta mikrokontroler do komunikacji   | domyślnie 19200                         |
+| lidarexe      | ścieżka do pliku wykonywalnego *lidar-sync*                  |                                         |
+| lidarport     | port, przez który odbywa się komunikacja z lidarem           |                                         |
+| lidarmode     | tryb pracy lidaru                                            | 3 (indoor, domyślnie) lub 4 (outdoor)   |
+| lidarpm       | ilość obrotów na minutę lidaru (RPM)                         | 200-1023, domyślnie 660                 |
+| servostep     | pojedynczy krok serwomechanizmu w jego jednostkach           |                                         |
+| servodelay    | odstęp czasowy serwomechanizmu pomiędzy krokami w milisekundach |                                         |
+| servomin      | minimalna pozycja serwomechanizmu w jego jednostkach         | domyślnie 1000                          |
+| servomax      | maksymalna pozycja serwomechanizmu w jego jednostkach        | domyślnie 3000                          |
+| servocalib    | pozycja serwomechanizmu, dla której płaszczyzna lidaru będzie w możliwie równoległej do ziemi pozycji | domyślnie 2500                          |
+| servostart    | pozycja startowa serwomechanizmu do skanowania               | domyślnie 3000                          |
+| servounit     | ważna wartość wyznaczona eksperymentalnie, która służy do przeliczenia jednostki serwomechanizmu na stopnie: **1 jednostka serwa = *servounit* °** | domyślnie około -0.047                  |
+| cloudrotation | wszystkie punkty leżące na płaszczyźnie zeskanowanej przez lidar zostaną obrócone o *cloudrotation* radianów | dla głowicy prototyp: -π/4, (-0.785398) |
+| acceluse      | jeżeli prawda to bierze pod uwagę IMU, jeśli fałsz to tylko zadane pozycje serwomechanizmu | *true* lub *false*                      |
+
+
 
 # Materiały 
 
@@ -308,9 +371,8 @@ Oprogramowanie, które powstało jako pomoc podczas pracy nad projektami. Są to
 
 ### [attestimator](https://github.com/knei-knurow/attestimator)
 
-## Chmury punktów
+## Przykłady chmur punktów
 
-### 3D
-
-### 2D
+- [3D (Google Drive)](https://drive.google.com/drive/folders/1JSF53_TLBTgeE407KCZTTn-GNv1g_iZ-?usp=sharing)
+- [2D (Google Drive)](https://drive.google.com/drive/folders/1GGNDYH1F7mPqHnHaxzhhpN3W45uAHUO9?usp=sharing)
 
