@@ -145,6 +145,39 @@ RPLIDAR oferuje kilka trybów skanowania. Godne uwagi są tylko dwa: domyślny s
 | 3    | **Sensitivity/Indoor (domyślny)** | 63               | 1.93762   |
 | 4    | **Stability/Outdoor**             | 100              | 1.2207    |
 
+### Dane
+
+- Domyślnym formatem danych lidaru są pary (kąt, odległość) w jednostkach [stopnie, milimetry]. 
+- Pary pomiarów są pogrupowane po 360 stopni - jedna chmura punktów. 
+- Jeżeli pomiar dla danego kąta się nie powiódł, wartość odległości jest równa 0. 
+- Maksymalna ilość punktów w jednej chmurze to 8192, jest to narzucone przez producenta ograniczenie. 
+- Ilość punktów w chmurze - 360 stopniach - zależy od trybu skanowania oraz od ilości obrotów na minutę (ang. RPM, revolutions per minute). Im wolniejsza prędkość obrotu, tym więcej punktów w chmurze. Zalecany przez autora zakres pracy to od 200 do 1023 rpm. Przy mniejszych wartościach niż 200 istnieje ryzyko przekroczenia wartości 8192 punktów na chmurę przez co SDK broni się. Domyśla wartość to 660rpm.
+
+### Pomiary szybkości silnika lidaru
+
+| Software RPM | Measured RPM | Software RPS | Measured RPS | Error  |
+| ------------ | ------------ | ------------ | ------------ | ------ |
+| 200          | 196.62       | 3.33         | 3.28         | ~1.7%  |
+| 400          | 432.02       | 6.67         | 7.20         | ~8.0%  |
+| 600          | 684.52       | 10.00        | 11.41        | ~14.0% |
+| 800          | 965.14       | 13.33        | 16.09        | ~20.6% |
+| 1000         | 1268.98      | 16.67        | 21.15        | ~26.8% |
+
+### Ogólne pomiary rezultatów lidaru
+
+Tryb skanowania: **Sensitivity**
+
+| zadany RPM | całk. czas [s] | punktów | punktów na chmurę | chmur | śr. czas na chmurę [s] | zmierzony RPM |
+| ---------- | -------------- | ------- | ----------------- | ----- | ---------------------- | ------------- |
+| 200        | 28.369         | 447133  | 4860.14           | 92    | 0.31                   | 194.58        |
+| 400        | 28.187         | 444097  | 2198.50           | 202   | 0.14                   | 429.99        |
+| 600        | 28.308         | 446794  | 1387.56           | 322   | 0.09                   | 682.49        |
+| **660\***  | 28.378         | 448529  | 1274.23           | 352   | 0.08                   | 744.24        |
+| 800        | 26.792         | 423121  | 984.00            | 430   | 0.06                   | 962.97        |
+| 1000       | 27.327         | 432130  | 748.93            | 577   | 0.05                   | 1266.88       |
+
+\* domyślny
+
 ## Serwomechanizm
 
 Serwomechanizm odpowiada za obrót płaszczyzny, która jest skanowana przez lidar. Sterowane jest ono sygnałem PWM za pomocą mikrokontrolera. 
@@ -184,16 +217,6 @@ Program *lidar-tools/sync* wykonuje kalibrację automatycznie przed rozpoczęcie
 
 Ciekawą częścią MPU jest moduł DMP (Digital Motion Processor), którym chwali się producent, ale jednocześnie oficjalne dokumentacje całkowicie pomijają jego istnienie. W internecie znaleźć można liczne nieoficjalne dyskusje i biblioteki próbujące wykorzystywać jego funkcjonalności. Do jednej z wielu (w tym dalej nieodkrytych) funkcjonalności należy szacowanie obrotu na podstawie *surowych* danych (obliczanie kwaternionu)
 
-### Dalsza obróbka danych
-
-MPU-6050 dostarcza sześć 2-bajtowych zmiennoprzecinkowych wartości w każdym *surowym* pomiarze. Dane mogą być zwizualizowane na wykresie i odpowiadają ruchom i obrotom urządzenia - [film z wizualizacją](https://youtu.be/J4pH3LHojVM).
-
-<img height=300 src="https://raw.githubusercontent.com/dsonyy/python-stuff/master/accelerometer-live-plot/example.png">
-
-*Surowe* dane następnie są przekazywane estymatora pozycji (ang. attitude estimator), który aktualizowany jest o kolejne wartości. Jako wynik estymator zwraca kwaternion - obiekt matematyczny składającą się z 4 liczb zmiennoprzecinkowych (w, x, y, z), które mogą zostać zinterpretowane jako obrót.
-
-Następnie, płaszczyzny 2D zawierające pomiary (x, y) uzyskane z lidaru są obracane w trzecim wymiarze o obliczony kwaternion. Pomiary lidaru przekształcone względem pomiarów IMU są wtedy gotowe.  
-
 ## Mikrokontroler
 
 Wykorzystywany w projekcie mikrokontroler to Atmega328p. Oprogramowanie, które powinno się na nim znaleźć znajduje się w repozytorium *lidar-avr*. Odpowiada ono za:
@@ -217,6 +240,16 @@ Mechaniczna konstrukcja na której zamontowane są poszczególne elementy projek
 Konstrukcja zaprojektowana w programie Autodesk Fusion 360 i wydrukowana w technologii 3D.
 
 # Skanowanie 3D
+
+### Dalsza obróbka danych
+
+MPU-6050 dostarcza sześć 2-bajtowych zmiennoprzecinkowych wartości w każdym *surowym* pomiarze. Dane mogą być zwizualizowane na wykresie i odpowiadają ruchom i obrotom urządzenia - [film z wizualizacją](https://youtu.be/J4pH3LHojVM).
+
+<img height=300 src="https://raw.githubusercontent.com/dsonyy/python-stuff/master/accelerometer-live-plot/example.png">
+
+*Surowe* dane następnie są przekazywane estymatora pozycji (ang. attitude estimator), który aktualizowany jest o kolejne wartości. Jako wynik estymator zwraca kwaternion - obiekt matematyczny składającą się z 4 liczb zmiennoprzecinkowych (w, x, y, z), które mogą zostać zinterpretowane jako obrót.
+
+Następnie, płaszczyzny 2D zawierające pomiary (x, y) uzyskane z lidaru są obracane w trzecim wymiarze o obliczony kwaternion. Pomiary lidaru przekształcone względem pomiarów IMU są wtedy gotowe.  
 
 ## Hardware - konfiguracja
 
