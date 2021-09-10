@@ -1,23 +1,24 @@
 # Lidar 2D to 3D
-Projekt polega na stworzeniu i oprogramowaniu urządzenia zdolnego do skanowania otaczającej go przestrzeni w 3D. Do tego celu wykorzystany jest m.in. lidar skanujący płaszczyznę 2D, głowica własnego projektu oraz inne pomocnicze elementy.
+
+Celem projektu było stworzenie urządzenia zdolnego do skanowania otaczającej go przestrzeni w 3D z użyciem lidaru 2D.
 
 # Spis treści
 
 - [Galeria]()
   - [2D]()
   - [3D]()
-- [Spis submodułów]()
-  - [lidar-tools*]()
-    - [sync*]()
+- [Submoduły]()
+  - [lidar-tools\*]()
+    - [sync\*]()
     - [servoctl]()
     - [receiver/transmitter]()
     - [scan-dummy]()
-  - [lidar-avr*]()
-  - [lidar-scan*]()
+  - [lidar-avr\*]()
+  - [lidar-scan\*]()
   - [lidar-vis]()
   - [lidar-visualization]()
   - [lidar-stm32]()
-- [Spis elementów]()
+- [Elementy]()
   - [Lidar]()
     - [Specyfikacja]()
     - [Źródła]()
@@ -40,7 +41,7 @@ Projekt polega na stworzeniu i oprogramowaniu urządzenia zdolnego do skanowania
 - [Konfiguracja]()
   - [Hardware]()
   - [Software]()
-    - [Parametry *lidar-tools/sync*]()
+    - [Parametry _lidar-tools/sync_]()
 - [Materiały dodatkowe]()
   - [Oprogramowanie pomocnicze]()
   - [Przykłady chmur punktów]()
@@ -51,19 +52,19 @@ Projekt polega na stworzeniu i oprogramowaniu urządzenia zdolnego do skanowania
 
 ## 2D
 
-# Spis submodułów
+# Submoduły
 
-W tym repozytorium pod jednym dachem zebrane są repozytoria z przedrostkiem *lidar-* rozwijane w ramach [KNEI](https://github.com/knei-knurow), które mają mniejszy lub większy związek ze skanowaniem 3D. Więcej informacji na każdy z projektów można znaleźć w ich wnętrzu w plikach README.
+W tym repozytorium pod jednym dachem zebrane są repozytoria z przedrostkiem \*lidar-\*\* rozwijane w ramach [KNEI](https://github.com/knei-knurow), które mają mniejszy lub większy związek ze skanowaniem 3D. Więcej informacji o każdym z tych projektów można znaleźć w ich plikach README.
 
-**Gwiazdka * oznacza repozytoria, które są wymagane do skanowania 3D.** Pozostałe projekty mogą się przydać podczas zabawy ze skanowaniem 2D.
+**Gwiazdka \* oznacza repozytoria, które są wymagane do skanowania 3D.** Pozostałe projekty mogą się przydać podczas zabawy ze skanowaniem 2D.
 
-## lidar-tools*
+## lidar-tools\*
 
-Zbiór *narzędzi* przydatnych podczas pracy z lidarem. 
+Zbiór programów _narzędzi_ przydatnych podczas pracy z lidarem.
 
-### sync*
+### sync\*
 
-Najważniejsze z *narzędzi*. Do jego zadań należy:
+Najważniejsze z _narzędzi_. Do jego zadań należy:
 
 - Ustanowienie połączenia z mikrokontrolerem (który steruje serwem i akcelerometrem) oraz lidarem.
 - Synchronizacja danych/pomiarów z dostępnych źródeł.
@@ -72,31 +73,31 @@ Najważniejsze z *narzędzi*. Do jego zadań należy:
 
 ### servoctl
 
-Skrypt pozwalający na wysłanie do mikrokontrolera ramki danych ustawiających serwo na zadanej pozycji.
+Wysyła do mikrokontrolera ramkę danych ustawiającą serwo na zadanej pozycji.
 
 ### transmitter/receiver
 
-Umożliwiają transmisję danych lidaru 2D (uzyskane np. za pomocą *lidar-scan*) poprzez UDP.
+Wysyła/odbiera dane lidaru 2D (uzyskane np. za pomocą _lidar-scan_) przez UDP.
 
-### scan-dummy 
+### scan-dummy
 
-Program udający lidar-scan generujący przykładowe dane.
+Udaje _lidar-scan_. Generuje przykładowe dane.
 
 **Autorzy:** [Szymon Bednorz](https://github.com/github.com/dsonyy), [Bartek Pacia](https://github.com/github.com/bartekpacia)
 
-## lidar-avr*
+## lidar-avr\*
 
-Oprogramowanie przeznaczone do kompilacji na mikrokontroler AVR Atmega328p, którego zadaniem jest obsługa serwa i akcelerometru oraz komunikacja poprzez USART z urządzeniem operatora. 
+Oprogramowanie przeznaczone do kompilacji na mikrokontroler AVR Atmega328p, którego zadaniem jest obsługa serwa i akcelerometru oraz komunikacja poprzez USART z urządzeniem operatora.
 
 Więcej o dokładnej konfiguracji i działaniu w odpowiedniej sekcji tego dokumentu.
 
 **Autorzy:** [Szymon Bednorz](https://github.com/github.com/dsonyy), [Bartek Pacia](https://github.com/github.com/bartekpacia)
 
-## lidar-scan*
+## lidar-scan\*
 
-Projekt wywodzący się z *lidar-visualizations.* Pomysł polegał na stworzeniu programu, który specjalizuje się w jednym konkretnym zastosowaniu i robi je dobrze ([Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)).
+Projekt wywodzący się z _lidar-visualizations._ Pomysł polegał na stworzeniu programu, który [specjalizuje się w jednym konkretnym zastosowaniu i robi je dobrze]https://en.wikipedia.org/wiki/Unix_philosophy).
 
-Zadaniem programu jest ustanowienie połączenia z lidarem oraz wypisywanie na standardowe wyjście (stdout) odebranych danych w formie tekstowej. Docelowo dane mogą być przekazane dowolnemu innemu programowi, który rozumie wejściowy format danych (*lidar-vis, lidar-stream).*
+Zadaniem programu jest ustanowienie połączenia z lidarem oraz wypisywanie na standardowe wyjście (stdout) odebranych danych w formie tekstowej. Docelowo dane mogą być przekazane dowolnemu innemu programowi, który rozumie wejściowy format danych (_lidar-vis, lidar-stream)._
 
 Zgodny z systemami Linux, macOS, Windows.
 
@@ -121,9 +122,9 @@ Zgodny z systemami Linux, macOS, Windows.
 
 ## lidar-vis
 
-Projekt wywodzący się z *lidar-visualizations*. Jest to "siostrzany" program do *lidar-scan –* robi jedną rzecz i robi ją dobrze ([Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)). 
+Graficzie wyświetla dane otrzymane z lidaru za pomocą _lidar-scan_.
 
-Zadaniem programu jest wyświetlanie danych otrzymanych z lidaru (za pomocą *lidar-scan*) i wyświetlanie ich graficznie.
+Projekt wywodzący się z _lidar-visualizations_. Jest to "siostrzany" program do \_lidar-scan – [robi jedną rzecz i robi ją dobrze](https://en.wikipedia.org/wiki/Unix_philosophy).
 
 Zgodny z systemami Linux, macOS, Windows.
 
@@ -131,31 +132,33 @@ Zgodny z systemami Linux, macOS, Windows.
 
 ## lidar-visualizations
 
-Program umożliwia odczyt i wizualizację danych z lidaru w czasie rzeczywistym.
+Wyświetla dane z lidaru w postaci tekstowej lub graficznej w czasie rzeczywistym.
 
 Oprogramowanie kilkukrotnie zmieniło prawie całkowicie swoją formę. Stworzone zostało na potrzeby artykułu do "Elektroniki Praktycznej" w zamian za wypożyczenie od KAMAMI lidaru. Na chwilę obecną nie jest aktywnie rozwijane. Kod składa się z kilku interfejsów, które teoretycznie umożliwiają tworzenie dodatkowych funkcjonalności. Program korzysta z oficjalnego RPLIDAR SDK oraz wysokopoziomowej biblioteki graficznej SFML.
 
 Zgodny z systemami Linux, macOS, Windows.
 
-Więcej informacji można przeczytać w artykule: [Elektronika Praktyczna "Wizualizacja pomiarów skanera LIDAR" (marzec 2021)](https://ep.com.pl/kursy/notatnik-konstruktora/14763-wizualizacja-pomiarow-skanera-lidar)
+Więcej informacji można przeczytać w artykule ["Wizualizacja pomiarów skanera LIDAR"](https://ep.com.pl/kursy/notatnik-konstruktora/14763-wizualizacja-pomiarow-skanera-lidar) w ["Elektronice Praktycznej"](https://ep.com.pl) z marca 2021.
 
 **Autor:** [Szymon Bednorz](https://github.com/github.com/dsonyy)
 
 ## lidar-stm32
 
-Ciekawy projekt, który podobnie jak *lidar-visualizations*, stworzony został na potrzeby "Elektroniki Praktycznej". Uruchamiany jest na płytce STM32, która za pomocą UART wysyła/odbiera dane do/z lidaru, a następnie je wizualizuje. W przeciwieństwie do *lidar-visualizations* nie korzysta z RPLIDAR SDK, które nie jest przystosowane do tego typu urządzeń, tylko z własnych funkcji stworzonych z wzór tych z SDK.
+Ciekawy projekt, który podobnie jak _lidar-visualizations_, stworzony został na potrzeby "Elektroniki Praktycznej". Uruchamiany jest na płytce STM32, która za pomocą UART wysyła/odbiera dane do/z lidaru, a następnie je wizualizuje.
 
-Więcej informacji można przeczytać w artykule: [Elektronika Praktyczna "Wizualizacja pomiarów skanera LIDAR" (marzec 2021)](https://ep.com.pl/kursy/notatnik-konstruktora/14763-wizualizacja-pomiarow-skanera-lidar)
+RPLIDAR SDK nie jest przystosowany do urządzeń _embeddeed_, więc stworzony został własny kod (na podstawie tego z RPLIDAR SDK) specjalnie dla platformy STM32.
+
+Więcej informacji można przeczytać w artykule ["Wizualizacja pomiarów skanera LIDAR"](https://ep.com.pl/kursy/notatnik-konstruktora/14763-wizualizacja-pomiarow-skanera-lidar) w ["Elektronice Praktycznej"](https://ep.com.pl) z marca 2021.
 
 **Autor:** [Bartek Dudek](https://github.com/github.com/doodek)
 
-# Spis elementów
+# Elementy
 
 ## Lidar
 
-Wykorzystywany w projekcie lidar to [Slamtec RPLIDAR A3](https://www.slamtec.com/en/Lidar/A3Spec). Producent dostarcza także [RPLIDAR SDK](https://github.com/Slamtec/rplidar_sdk) wspierające systemy Windows i macOS, które pozwala na sprawne rozpoczęcie pracy ze sprzętem.
+Wykorzystywany w projekcie lidar to [Slamtec RPLIDAR A3](https://www.slamtec.com/en/Lidar/A3Spec). Producent dostarcza także [RPLIDAR SDK](https://github.com/Slamtec/rplidar_sdk) wspierające systemy Linux, macOS i Windows, które pozwala na pracę ze sprzętem.
 
-Lidar posiada swoje własne zasilanie, oraz własny przewód USB (do transmisji danych) do urządzenia operatora.
+Lidar posiada swoje własne zasilanie. Dysponuje również przewodem USB, aby przesyłać dane do urządzenia operatora.
 
 ### Specyfikacja
 
@@ -179,20 +182,20 @@ Lidar posiada swoje własne zasilanie, oraz własny przewód USB (do transmisji 
 
 RPLIDAR oferuje kilka trybów skanowania. Godne uwagi są tylko dwa: domyślny sensitivity (indoor) i stability (outdoor). Podczas pracy na zewnątrz, szczególnie w bardzo słoneczne dni, wyraźnie widać różnicę w ilości poprawnie wykonanych pomiarów. Pozostałe tryby istnieją dla kompatybilności wstecznej z poprzednimi generacjami urządzenia i/lub wymagają niższego baudrate'u podczas transmisji danych.
 
-| ID   | Scan mode                         | Sample time [us] | Frequency |
-| ---- | --------------------------------- | ---------------- | --------- |
-| 0    | Standard                          | 252              | 0.484406  |
-| 1    | Express                           | 126              | 0.968812  |
-| 2    | Boost                             | 63               | 1.93762   |
-| 3    | **Sensitivity/Indoor (domyślny)** | 63               | 1.93762   |
-| 4    | **Stability/Outdoor**             | 100              | 1.2207    |
+| ID  | Scan mode                         | Sample time [us] | Frequency |
+| --- | --------------------------------- | ---------------- | --------- |
+| 0   | Standard                          | 252              | 0.484406  |
+| 1   | Express                           | 126              | 0.968812  |
+| 2   | Boost                             | 63               | 1.93762   |
+| 3   | **Sensitivity/Indoor (domyślny)** | 63               | 1.93762   |
+| 4   | **Stability/Outdoor**             | 100              | 1.2207    |
 
 ### Dane
 
-- Domyślnym formatem danych lidaru są pary (kąt, odległość) w jednostkach [stopnie, milimetry]. 
-- Pary pomiarów są pogrupowane po 360 stopni - jedna chmura punktów. 
-- Jeżeli pomiar dla danego kąta się nie powiódł, wartość odległości jest równa 0. 
-- Maksymalna ilość punktów w jednej chmurze to 8192, jest to narzucone przez producenta ograniczenie. 
+- Domyślnym formatem danych lidaru są pary (kąt, odległość) w jednostkach [stopnie, milimetry].
+- Pary pomiarów są pogrupowane po 360 stopni - jedna chmura punktów.
+- Jeżeli pomiar dla danego kąta się nie powiódł, wartość odległości jest równa 0.
+- Maksymalna ilość punktów w jednej chmurze to 8192, jest to narzucone przez producenta ograniczenie.
 - Ilość punktów w chmurze - 360 stopniach - zależy od trybu skanowania oraz od ilości obrotów na minutę (ang. RPM, revolutions per minute). Im wolniejsza prędkość obrotu, tym więcej punktów w chmurze. Zalecany przez autora zakres pracy to od 200 do 1023 rpm. Przy mniejszych wartościach niż 200 istnieje ryzyko przekroczenia wartości 8192 punktów na chmurę przez co SDK broni się. Domyśla wartość to 660rpm.
 
 ### Pomiary szybkości silnika lidaru
@@ -222,7 +225,7 @@ Tryb skanowania: **Sensitivity**
 
 ## Serwomechanizm
 
-Serwomechanizm odpowiada za obrót płaszczyzny, która jest skanowana przez lidar. Sterowane jest ono sygnałem PWM za pomocą mikrokontrolera. 
+Serwomechanizm odpowiada za obrót płaszczyzny, która jest skanowana przez lidar. Sterowane jest ono sygnałem PWM za pomocą mikrokontrolera.
 
 Wymaga własnego zasilania. Sygnał PWM nadawany jest przez mikrokontroler.
 
@@ -233,7 +236,7 @@ IMU (ang. inertial measurement unit) to urządzenie służące do nawigacji iner
 - konstrukcja podczas ruchu mogłaby być mniej lub bardziej przechylana w każdą ze stron podczas skanowania,
 - wykorzystywany przez nas serwomechanizm ma ograniczoną dokładność.
 
-Oba problemy miały zostać rozwiązane przez IMU, które dostarczałoby w czasie rzeczywistym danych dotyczących aktualnego przechylenia/obrotu płaszczyzny skanowania. 
+Oba problemy miały zostać rozwiązane przez IMU, które dostarczałoby w czasie rzeczywistym danych dotyczących aktualnego przechylenia/obrotu płaszczyzny skanowania.
 
 Niestety wyniki z wykorzystujące opisane IMU i metody szacowania obrotu płaszczyzny okazują się jeszcze bardziej niedokładne, niż wykorzystywanie samego lidaru i serwa. Powodów należy szukać w szacowaniu pozycji, które polega na ciągłym aktualizowaniu stanu, opierającego się na poprzednich pomiarach. W ten sposób bardzo szybko rośnie błąd, który sprawia, że dwa skany tej samej sceny mogą mocno różnić się od siebie.
 
@@ -241,7 +244,7 @@ Projekt w wersji finalnej przygotowany jest do pracy **z** jak i **bez** IMU. Dl
 
 ### MPU-6050
 
-Podstawową funkcjonalnością urządzenia jest wykorzystywanie 3-osiowego akcelerometru i żyroskopu. W ten sposób otrzymujemy strumień *surowych* pomiarów składających się z sześciu 2-bajtowych liczb zmiennoprzecinkowych w opisanej w dokumentacji skali. Moduł komunikuje się interfejsem I2C.
+Podstawową funkcjonalnością urządzenia jest wykorzystywanie 3-osiowego akcelerometru i żyroskopu. W ten sposób otrzymujemy strumień _surowych_ pomiarów składających się z sześciu 2-bajtowych liczb zmiennoprzecinkowych w opisanej w dokumentacji skali. Moduł komunikuje się interfejsem I2C.
 
 [MPU-6050 w bazie i2cdevlib](https://www.i2cdevlib.com/devices/mpu6050#links)
 
@@ -253,15 +256,15 @@ Moduł całkowicie kompatybilny z MPU-6050. Różnicą jest posiadanie dodatkowo
 
 Kalibracja MPU-6050 polega na ustawieniu go na możliwie płaskiej powierzchni, wykonanie serii pomiarów (po 6 wartości na pomiar), obliczenie ich średniej i zapisanie wyników. Należy też uwzględnić przyspieszenie grawitacyjne, które powinno być wyraźnie widoczne na jednej z osi.
 
-Program *lidar-tools/sync* wykonuje kalibrację automatycznie przed rozpoczęciem skanowania (jeżeli korzystamy z IMU).
+Program _lidar-tools/sync_ wykonuje kalibrację automatycznie przed rozpoczęciem skanowania (jeżeli korzystamy z IMU).
 
 ### DMP
 
-Ciekawą częścią MPU jest moduł DMP (Digital Motion Processor), którym chwali się producent, ale jednocześnie oficjalne dokumentacje całkowicie pomijają jego istnienie. W internecie znaleźć można liczne nieoficjalne dyskusje i biblioteki próbujące wykorzystywać jego funkcjonalności. Do jednej z wielu (w tym dalej nieodkrytych) funkcjonalności należy szacowanie obrotu na podstawie *surowych* danych (obliczanie kwaternionu)
+Ciekawą częścią MPU jest moduł DMP (Digital Motion Processor), którym chwali się producent, ale jednocześnie oficjalne dokumentacje całkowicie pomijają jego istnienie. W internecie znaleźć można liczne nieoficjalne dyskusje i biblioteki próbujące wykorzystywać jego funkcjonalności. Do jednej z wielu (w tym dalej nieodkrytych) funkcjonalności należy szacowanie obrotu na podstawie _surowych_ danych (obliczanie kwaternionu)
 
 ## Mikrokontroler
 
-Wykorzystywany w projekcie mikrokontroler to Atmega328p. Oprogramowanie, które powinno się na nim znaleźć znajduje się w repozytorium *lidar-avr*. Odpowiada ono za:
+Wykorzystywany w projekcie mikrokontroler to ATmega328p. Oprogramowanie, które musi się na nim znaleźć znajduje się w repozytorium _lidar-avr_. Odpowiada ono za:
 
 - sterowanie sygnałem PWM w celu kontroli serwomechanizmu,
 - komunikacja poprzez I2C z MPU-6050 (lub MPU-9250),
@@ -273,7 +276,7 @@ TODO
 
 ## Głowica
 
-Mechaniczna konstrukcja na której zamontowane są poszczególne elementy projektu. 
+Mechaniczna konstrukcja na której zamontowane są poszczególne elementy projektu.
 
 ### Prototyp
 
@@ -283,7 +286,7 @@ Konstrukcja zaprojektowana w programie Autodesk Fusion 360 i wydrukowana w techn
 
 # Skanowanie 3D
 
-Pomysł skanowania 3D polega na zbieraniu danych z kilku źródeł i łączeniu ich w przemyślany sposób.
+Skanowania 3D polega na zbieraniu danych z kilku źródeł nie-3D i łączeniu ich w taki sposób, aby otrzymać informację 3D o otoczeniu.
 
 Najważniejszym urządzeniem jest lidar, który po uruchomieniu jest w stanie generować kilka chmur punktów na sekundę. Punkty reprezentowane są w postaci par (kąt, odległość) w jednostkach [stopnie, milimetry].
 
@@ -299,63 +302,63 @@ Program **lidar-tools/sync** po uruchomieniu na urządzeniu operatora:
 3. uruchamia pętlę wysyłającą rozkazy do mikrokontrolera sterującą **serwomechanizmem**.
 4. uruchamia (opcjonalnie) pętlę odbierająca od mikrokontrolera pomiary **IMU**.
 
-Pomiary IMU i zadane pozycje serwomechanizmu są gromadzone w buforach wraz z czasem, w którym są one prawdziwe. Dla każdej odebranej chmury punktów lidaru, bufory są przeszukiwane w poszukiwaniu najlepiej pasującego czasowo pomiaru IMU lub zadanej pozycji serwomechanizmu. Metoda jaka zostanie obrana zależy od użytkownika, innymi słowy czy użytkownik zdecyduje się na wykorzystywanie IMU czy też nie. 
+Pomiary IMU i zadane pozycje serwomechanizmu są gromadzone wraz z czasem, w którym miały miejsce. Do każdej odebranej chmury punktów lidaru dobierany jest najlepiej pasujący czasowo pomiar IMU lub zadana pozycja serwomechanizmu. Metoda jaka zostanie obrana zależy od użytkownika (innymi słowy, to użytkownik decyduje, czy wykorzystywać IMU).
 
-Następnie dokonywane są obliczenia wskutek których powstać powinna grupa gotowych punktów wypisanych na standardowe wyjście (stdout). 
+Następnie dokonywane są obliczenia, w efekcie których powstaje grupa gotowych punktów. Wypisywane są one na standardowe wyjście (stdout).
 
 ### Obróbka surowych pomiarów IMU
 
-MPU-6050 dostarcza sześć 2-bajtowych zmiennoprzecinkowych wartości w każdym *surowym* pomiarze. Aby zrozumieć dane, można je łatwo zwizualizować na wykresie. Będą one odpowiadały ruchom i obrotom urządzenia - [film z wizualizacją](https://youtu.be/J4pH3LHojVM). 
+MPU-6050 dostarcza sześć 2-bajtowych zmiennoprzecinkowych wartości w każdym _surowym_ pomiarze. Aby zrozumieć dane, można je łatwo zwizualizować na wykresie. Będą one odpowiadały ruchom i obrotom urządzenia.
+
+Ffilm z wizualizacją](https://youtu.be/J4pH3LHojVM)
 
 **Przykładowy wykres:**
 
 <img height=300 src="https://raw.githubusercontent.com/dsonyy/python-stuff/master/accelerometer-live-plot/example.png">
 
-*Surowe* dane po odebraniu przez *lidar-tools/sync* są przekazywane estymatora pozycji (ang. attitude estimator), który aktualizowany jest o kolejne wartości. Jako wynik estymator zwraca kwaternion - obiekt matematyczny składającą się z 4 liczb zmiennoprzecinkowych (w, x, y, z), które mogą zostać zinterpretowane jako obrót obiektu.
+_Surowe_ dane po odebraniu przez _lidar-tools/sync_ są przekazywane estymatora pozycji (ang. attitude estimator), który aktualizowany jest o kolejne wartości. Jako wynik estymator zwraca [kwaternion](https://pl.wikipedia.org/wiki/Kwaterniony) - obiekt matematyczny składającą się z 4 liczb zmiennoprzecinkowych (w, x, y, z), które mogą zostać zinterpretowane jako obrót obiektu.
 
 # Konfiguracja
 
 ## Hardware
 
-1. Mikrokontroler powinien być podłączony do urządzenia operatora, aby umożliwić komunikację USART.
-2. Serwomechanim powinien być połączony do zasilania oraz mikrokontrolera w sposób przedstawiony na schemacie (TODO).
-3. (Opcjonalnie) IMU (MPU-6050 lub kompatybilne MPU-9250) powinno być podłączone do mikrokontrolera w sposób przedstawiony na schemacie (TODO).
-4. Lidar powinien być podłączony do stabilnego źródła zasilania i do urządzenia operatora. 
+1. Mikrokontroler musoi być podłączony do urządzenia operatora, aby umożliwić komunikację USART.
+2. Serwomechanim musi być połączony do zasilania oraz mikrokontrolera w sposób przedstawiony na schemacie (TODO).
+3. IMU (MPU-6050 lub kompatybilne MPU-9250) może być podłączone do mikrokontrolera w sposób przedstawiony na schemacie (TODO - patrz skanowanie 3D).
+4. Lidar musi być podłączony do stabilnego źródła zasilania i do urządzenia operatora.
 
 ## Software
 
-**Na mikrokontrolerze** powinien być zaflashowany program *lidar-avr*.
+**Na mikrokontrolerze** musi być zaflashowany program _lidar-avr_.
 
-**Na urządzeniu operatora** powinien znaleźć się:
+**Na urządzeniu operatora** musi znaleźć się:
 
-- *lidar-tools/sync*
-- *lidar-scan*
+- _lidar-tools/sync_
+- _lidar-scan_
 
-Następnie można przystąpić do konfiguracji *lidar-tools/sync*. Wszystkie dostępne parametry programu należy dostrajać korzystając z argumentów wiersza poleceń. Ich liczba może być spora, dlatego wygodnie jest przygotować skrypt, który uruchomi *lidar-tools/sync* przekazując mu odpowiednie parametry (jak np. *sync.ps1* znajdujący się w głównym repozytorium projektu *lidar-tools*). 
+Następnie można przystąpić do konfiguracji _lidar-tools/sync_. Wszystkie dostępne parametry programu należy dostrajać korzystając z argumentów wiersza poleceń. Ich liczba może być spora, dlatego wygodnie jest przygotować skrypt, który uruchomi _lidar-tools/sync_ przekazując mu odpowiednie parametry (jak np. _sync.ps1_ znajdujący się w głównym repozytorium projektu _lidar-tools_).
 
-### Parametry *lidar-tools/sync*
+### Parametry _lidar-tools/sync_
 
-| Parametr      | Opis                                                         | Uwagi                                   |
-| ------------- | ------------------------------------------------------------ | --------------------------------------- |
-| avrport       | port, przez który odbywa się komunikacja z mikrokontrolerem  |                                         |
-| avrbaud       | baudrate, z którego korzysta mikrokontroler do komunikacji   | domyślnie 19200                         |
-| lidarexe      | ścieżka do pliku wykonywalnego *lidar-sync*                  |                                         |
-| lidarport     | port, przez który odbywa się komunikacja z lidarem           |                                         |
-| lidarmode     | tryb pracy lidaru                                            | 3 (indoor, domyślnie) lub 4 (outdoor)   |
-| lidarpm       | ilość obrotów na minutę lidaru (RPM)                         | 200-1023, domyślnie 660                 |
-| servostep     | pojedynczy krok serwomechanizmu w jego jednostkach           |                                         |
-| servodelay    | odstęp czasowy serwomechanizmu pomiędzy krokami w milisekundach |                                         |
-| servomin      | minimalna pozycja serwomechanizmu w jego jednostkach         | domyślnie 1000                          |
-| servomax      | maksymalna pozycja serwomechanizmu w jego jednostkach        | domyślnie 3000                          |
-| servocalib    | pozycja serwomechanizmu, dla której płaszczyzna lidaru będzie w możliwie równoległej do ziemi pozycji | domyślnie 2500                          |
-| servostart    | pozycja startowa serwomechanizmu do skanowania               | domyślnie 3000                          |
-| servounit     | ważna wartość wyznaczona eksperymentalnie, która służy do przeliczenia jednostki serwomechanizmu na stopnie: **1 jednostka serwa = *servounit* °** | domyślnie około -0.047                  |
-| cloudrotation | wszystkie punkty leżące na płaszczyźnie zeskanowanej przez lidar zostaną obrócone o *cloudrotation* radianów | dla głowicy prototyp: -π/4, (-0.785398) |
-| acceluse      | jeżeli prawda to bierze pod uwagę IMU, jeśli fałsz to tylko zadane pozycje serwomechanizmu | *true* lub *false*                      |
+| Parametr      | Opis                                                                                                                                               | Uwagi                                   |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| avrport       | port, przez który odbywa się komunikacja z mikrokontrolerem                                                                                        |                                         |
+| avrbaud       | baudrate, z którego korzysta mikrokontroler do komunikacji                                                                                         | domyślnie 19200                         |
+| lidarexe      | ścieżka do pliku wykonywalnego _lidar-sync_                                                                                                        |                                         |
+| lidarport     | port, przez który odbywa się komunikacja z lidarem                                                                                                 |                                         |
+| lidarmode     | tryb pracy lidaru                                                                                                                                  | 3 (indoor, domyślnie) lub 4 (outdoor)   |
+| lidarpm       | ilość obrotów na minutę lidaru (RPM)                                                                                                               | 200-1023, domyślnie 660                 |
+| servostep     | pojedynczy krok serwomechanizmu w jego jednostkach                                                                                                 |                                         |
+| servodelay    | odstęp czasowy serwomechanizmu pomiędzy krokami w milisekundach                                                                                    |                                         |
+| servomin      | minimalna pozycja serwomechanizmu w jego jednostkach                                                                                               | domyślnie 1000                          |
+| servomax      | maksymalna pozycja serwomechanizmu w jego jednostkach                                                                                              | domyślnie 3000                          |
+| servocalib    | pozycja serwomechanizmu, dla której płaszczyzna lidaru będzie w możliwie równoległej do ziemi pozycji                                              | domyślnie 2500                          |
+| servostart    | pozycja startowa serwomechanizmu do skanowania                                                                                                     | domyślnie 3000                          |
+| servounit     | ważna wartość wyznaczona eksperymentalnie, która służy do przeliczenia jednostki serwomechanizmu na stopnie: **1 jednostka serwa = _servounit_ °** | domyślnie około -0.047                  |
+| cloudrotation | wszystkie punkty leżące na płaszczyźnie zeskanowanej przez lidar zostaną obrócone o _cloudrotation_ radianów                                       | dla głowicy prototyp: -π/4, (-0.785398) |
+| acceluse      | jeżeli prawda to bierze pod uwagę IMU, jeśli fałsz to tylko zadane pozycje serwomechanizmu                                                         | _true_ lub _false_                      |
 
-
-
-# Materiały 
+# Materiały
 
 ## Oprogramowanie pomocnicze
 
@@ -375,4 +378,3 @@ Oprogramowanie, które powstało jako pomoc podczas pracy nad projektami. Są to
 
 - [3D (Google Drive)](https://drive.google.com/drive/folders/1JSF53_TLBTgeE407KCZTTn-GNv1g_iZ-?usp=sharing)
 - [2D (Google Drive)](https://drive.google.com/drive/folders/1GGNDYH1F7mPqHnHaxzhhpN3W45uAHUO9?usp=sharing)
-
