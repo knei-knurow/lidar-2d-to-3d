@@ -56,7 +56,7 @@ przestrzeni w 3D z użyciem lidaru 2D.
 # Submoduły
 
 W tym repozytorium pod jednym dachem zebrane są repozytoria z przedrostkiem
-\*lidar-\*\* rozwijane w ramach [KNEI](https://github.com/knei-knurow), które
+**lidar-** rozwijane w ramach [KNEI](https://github.com/knei-knurow), które
 mają mniejszy lub większy związek ze skanowaniem 3D. Więcej informacji o każdym
 z tych projektów można znaleźć w ich plikach README.
 
@@ -153,11 +153,11 @@ Zgodny z systemami Linux, macOS, Windows.
 Wyświetla dane z lidaru w postaci tekstowej lub graficznej w czasie rzeczywistym.
 
 Oprogramowanie kilkukrotnie zmieniło prawie całkowicie swoją formę. Stworzone
-zostało na potrzeby artykułu do "Elektroniki Praktycznej" w zamian za
-wypożyczenie od KAMAMI lidaru. Na chwilę obecną nie jest aktywnie rozwijane.
-Kod składa się z kilku interfejsów, które teoretycznie umożliwiają tworzenie
-dodatkowych funkcjonalności. Program korzysta z oficjalnego RPLIDAR SDK oraz
-wysokopoziomowej biblioteki graficznej SFML.
+zostało na potrzeby artykułu do "Elektroniki Praktycznej". Na chwilę obecną
+nie jest aktywnie rozwijane. Kod składa się z kilku interfejsów, które
+teoretycznie umożliwiają tworzenie dodatkowych funkcjonalności. Program
+korzysta z oficjalnego RPLIDAR SDK oraz wysokopoziomowej biblioteki
+graficznej SFML.
 
 Zgodny z systemami Linux, macOS, Windows.
 
@@ -171,9 +171,8 @@ Ciekawy projekt, który podobnie jak _lidar-visualizations_, stworzony został n
 potrzeby "Elektroniki Praktycznej". Uruchamiany jest na płytce STM32, która za
 pomocą UART wysyła/odbiera dane do/z lidaru, a następnie je wizualizuje.
 
-RPLIDAR SDK nie jest przystosowany do urządzeń _embeddeed_, więc stworzony
-został własny kod (na podstawie tego z RPLIDAR SDK) specjalnie dla platformy
-STM32.
+RPLIDAR SDK nie jest przystosowany do urządzeń _embeddeed_, więc na jego
+podstawie stworzona została autorska implementacja przeznaczona na STM32.
 
 Więcej informacji można przeczytać w artykule ["Wizualizacja pomiarów skanera LIDAR"](https://ep.com.pl/kursy/notatnik-konstruktora/14763-wizualizacja-pomiarow-skanera-lidar) w ["Elektronice Praktycznej"](https://ep.com.pl) z marca 2021.
 
@@ -326,7 +325,7 @@ się producent, ale jednocześnie oficjalne dokumentacje całkowicie pomijają j
 istnienie. W internecie znaleźć można liczne nieoficjalne dyskusje i biblioteki
 próbujące wykorzystywać jego funkcjonalności. Do jednej z wielu (w tym dalej
 nieodkrytych) funkcjonalności należy szacowanie obrotu na podstawie _surowych_
-danych (obliczanie kwaternionu)
+danych (obliczanie kwaternionu).
 
 ## Mikrokontroler
 
