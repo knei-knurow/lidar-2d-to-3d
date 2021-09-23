@@ -10,7 +10,7 @@ przestrzeni w 3D z użyciem lidaru 2D.
 - [Galeria](#galeria)
   - [3D](#3d)
   - [2D](#2d)
-- [Submoduły](#submoduly)
+- [Submoduły](#submoduły)
   - [lidar-tools\*](#lidar-tools)
     - [sync\*](#sync)
     - [servoctl]()
