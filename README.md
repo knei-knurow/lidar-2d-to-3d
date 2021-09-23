@@ -198,6 +198,8 @@ Więcej informacji można przeczytać w artykule ["Wizualizacja pomiarów skaner
 
 ## Lidar
 
+<img src="images/a3m1.jpg" width=300>
+
 Wykorzystywany w projekcie lidar to [Slamtec RPLIDAR A3](https://www.slamtec.com/en/Lidar/A3Spec).
 Producent dostarcza także [RPLIDAR SDK](https://github.com/Slamtec/rplidar_sdk)
 wspierające systemy Linux, macOS i Windows, które pozwala na pracę ze sprzętem.
@@ -311,6 +313,8 @@ wykorzystanie, chociaż ma się wtedy do czynienia z rosnącym błędem.
 
 ### MPU-6050
 
+<img src="images/imu.jpg" height=200>
+
 Podstawową funkcjonalnością urządzenia jest wykorzystywanie 3-osiowego
 akcelerometru i żyroskopu. W ten sposób otrzymujemy strumień _surowych_
 pomiarów składających się z sześciu 2-bajtowych liczb zmiennoprzecinkowych
@@ -344,6 +348,8 @@ nieodkrytych) funkcjonalności należy szacowanie obrotu na podstawie _surowych_
 danych (obliczanie kwaternionu).
 
 ## Mikrokontroler
+
+<img src="images/atmega.png" width=300> 
 
 Wykorzystywany w projekcie mikrokontroler to ATmega328p. Oprogramowanie, które
 musi się na nim znaleźć znajduje się w repozytorium _lidar-avr_. Odpowiada ono
