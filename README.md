@@ -3,11 +3,13 @@
 Celem projektu było stworzenie urządzenia zdolnego do skanowania otaczającej go
 przestrzeni w 3D z użyciem lidaru 2D.
 
+![ezgif-3-d5575b524c23](images/ezgif-3-d5575b524c23.gif)
+
 # Spis treści
 
 - [Galeria]()
-  - [2D]()
   - [3D]()
+  - [2D]()
 - [Submoduły]()
   - [lidar-tools\*]()
     - [sync\*]()
@@ -51,7 +53,21 @@ przestrzeni w 3D z użyciem lidaru 2D.
 
 ## 3D
 
+![komputer](images/komputer-16324113767931.bmp)
+
+![ogrod](images/ogrod.bmp)
+
+![ogrod](../../../Users/szymon/Documents/pokoj.bmp)
+
+![pracownia](images/pracownia.bmp)
+
+## ![capture](images/capture.bmp)
+
 ## 2D
+
+![](images/2d-cars.gif)
+
+![2d-room](images/2d-room.gif)
 
 # Submoduły
 
@@ -337,11 +353,10 @@ za:
 - komunikacja poprzez I2C z MPU-6050 (lub MPU-9250),
 - komunikacja z komputerem operatora (odbieranie/wysyłanie ramek danych).
 
-Na poniższym schemacie znajduje się domyślne połączenie przewodów i elementów
-projektu (wykorzystana została płytka Arduino UNO, ale mikrokontroler jest
+Szczegóły na temat połączeń przewodów i elementów projektu znajduje się w sekcji [hardware](#hardware) (wykorzystana została płytka Arduino UNO, ale mikrokontroler jest
 programowany bezpośrednio):
 
-TODO
+**TODO**
 
 ## Głowica
 
@@ -349,10 +364,16 @@ Mechaniczna konstrukcja na której zamontowane są poszczególne elementy projek
 
 ### Prototyp
 
+![ezgif-3-d5575b524c23](images/ezgif-3-d5575b524c23.gif)
+
+
+
 ### Wersja finalna
 
 Konstrukcja zaprojektowana w programie Autodesk Fusion 360 i wydrukowana w
 technologii 3D.
+
+<img src="images/Mocowanie na łazik v21 V2.png" width=300>
 
 # Skanowanie 3D
 
@@ -404,23 +425,23 @@ Ffilm z wizualizacją](https://youtu.be/J4pH3LHojVM)
 
 _Surowe_ dane po odebraniu przez _lidar-tools/sync_ są przekazywane estymatora
 pozycji (ang. attitude estimator), który aktualizowany jest o kolejne wartości.
-Jako wynik estymator zwraca [kwaternion](https://pl.wikipedia.org/wiki/Kwaterniony)
-
-- obiekt matematyczny składającą się z 4 liczb zmiennoprzecinkowych (w, x, y, z),
-  które mogą zostać zinterpretowane jako obrót obiektu.
+Jako wynik estymator zwraca [kwaternion](https://pl.wikipedia.org/wiki/Kwaterniony) - obiekt matematyczny składającą się z 4 liczb zmiennoprzecinkowych (w, x, y, z),
+które mogą zostać zinterpretowane jako obrót obiektu.
 
 # Konfiguracja
 
 ## Hardware
 
-1. Mikrokontroler musoi być podłączony do urządzenia operatora, aby umożliwić
+1. Mikrokontroler musi być podłączony do urządzenia operatora, aby umożliwić
    komunikację USART.
 2. Serwomechanim musi być połączony do zasilania oraz mikrokontrolera w sposób
-   przedstawiony na schemacie (TODO).
+   przedstawiony na schemacie.
 3. IMU (MPU-6050 lub kompatybilne MPU-9250) może być podłączone do mikrokontrolera
-   w sposób przedstawiony na schemacie (TODO - patrz skanowanie 3D).
+   w sposób przedstawiony na schemacie.
 4. Lidar musi być podłączony do stabilnego źródła zasilania i do urządzenia
    operatora.
+
+TODO: Schemat
 
 ## Software
 
@@ -464,15 +485,11 @@ _sync.ps1_ znajdujący się w głównym repozytorium projektu _lidar-tools_).
 Oprogramowanie, które powstało jako pomoc podczas pracy nad projektami. Są to
 proste programy/skrypty realizujące jedno zadanie.
 
-### accel-read
-
-### accel-plot
-
-### angle-visualization
-
-### pipeline
-
-### [attestimator](https://github.com/knei-knurow/attestimator)
+- [serial-read-accelerometer](https://github.com/dsonyy/go-stuff)
+- [accel-plot](https://github.com/dsonyy/python-stuff)
+- [angle-visualization](https://github.com/dsonyy/cpp-stuff)
+- [pipeline](https://github.com/dsonyy/go-stuff)
+- [attestimator](https://github.com/knei-knurow/attestimator)
 
 ## Przykłady chmur punktów
 
