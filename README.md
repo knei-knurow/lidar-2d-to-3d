@@ -71,7 +71,7 @@ przestrzeni w 3D z użyciem lidaru 2D.
 
 W tym repozytorium pod jednym dachem zebrane są repozytoria z przedrostkiem
 **lidar-** rozwijane w ramach [KNEI](https://github.com/knei-knurow), które
-mają mniejszy lub większy związek ze skanowaniem 3D. Więcej informacji o każdym
+mają związek ze skanowaniem 3D. Więcej informacji o każdym
 z tych projektów można znaleźć w ich plikach README.
 
 **Gwiazdka \* oznacza repozytoria, które są wymagane do skanowania 3D.**
@@ -93,7 +93,7 @@ Najważniejsze z _narzędzi_. Do jego zadań należy:
 
 ### servoctl
 
-Wysyła do mikrokontrolera ramkę danych ustawiającą serwo na zadanej pozycji.
+Wysyła do mikrokontrolera ramkę danych ustawiającą serwomechanizmu na zadanej pozycji.
 
 ### transmitter/receiver
 
@@ -108,11 +108,11 @@ Udaje _lidar-scan_. Generuje przykładowe dane.
 
 ## lidar-avr\*
 
-Oprogramowanie przeznaczone do kompilacji na mikrokontroler AVR Atmega328p,
-którego zadaniem jest obsługa serwa i akcelerometru oraz komunikacja poprzez
+Oprogramowanie przeznaczone do bycia wgranym na mikrokontroler AVR Atmega328p,
+którego zadaniem jest obsługa serwomechanizmu i akcelerometru oraz komunikacja poprzez
 USART z urządzeniem operatora.
 
-Więcej o dokładnej konfiguracji i działaniu w odpowiedniej sekcji tego
+Więcej o dokładnej konfiguracji i działaniu w dalszych sekcjach tego
 dokumentu.
 
 **Autorzy:** [Szymon Bednorz](https://github.com/github.com/dsonyy),
@@ -126,7 +126,7 @@ programu, który [robi jedną rzecz i robi ją dobrze](https://en.wikipedia.org/
 Zadaniem programu jest ustanowienie połączenia z lidarem oraz wypisywanie na
 standardowe wyjście (stdout) odebranych danych w formie tekstowej. Docelowo
 dane mogą być przekazane dowolnemu innemu programowi, który rozumie wejściowy
-format danych (_lidar-vis, lidar-stream)._
+format danych.
 
 Zgodny z systemami Linux, macOS, Windows.
 
@@ -247,7 +247,7 @@ wykonanych pomiarów. Pozostałe tryby istnieją dla kompatybilności wstecznej 
 - Maksymalna ilość punktów w jednej chmurze to 8192, jest to narzucone przez
   producenta ograniczenie.
 - Ilość punktów w chmurze - 360 stopniach - zależy od trybu skanowania oraz od
-  ilości obrotów na minutę (ang. RPM, revolutions per minute). Im wolniejsza prędkość obrotu, tym więcej punktów w chmurze. Zalecany przez autora zakres pracy to od 200 do 1023 rpm. Przy mniejszych wartościach niż 200 istnieje ryzyko przekroczenia wartości 8192 punktów na chmurę przez co SDK broni się. Domyśla wartość to 660rpm.
+  ilości obrotów na minutę (ang. RPM, revolutions per minute). Im wolniejsza prędkość obrotu, tym więcej punktów w chmurze. Zalecany przez autora zakres pracy to od 200 do 1023 rpm. Przy mniejszych wartościach niż 200 istnieje ryzyko przekroczenia wartości 8192 punktów na chmurę co może powodować problemy. Domyśla wartość to 660rpm.
 
 ### Pomiary szybkości silnika lidaru
 
@@ -331,7 +331,8 @@ aktualnie nie jest wykorzystywany w projekcie.
 Kalibracja MPU-6050 polega na ustawieniu go na możliwie płaskiej powierzchni,
 wykonanie serii pomiarów (po 6 wartości na pomiar), obliczenie ich średniej i
 zapisanie wyników. Należy też uwzględnić przyspieszenie grawitacyjne, które
-powinno być wyraźnie widoczne na jednej z osi.
+powinno być wyraźnie widoczne na jednej z osi. Wyniki kalibracji powinny zostać
+z odpowiednim znakiem dodane do każdego późniejszego pomiaru.
 
 Program _lidar-tools/sync_ wykonuje kalibrację automatycznie przed rozpoczęciem
 skanowania (jeżeli korzystamy z IMU).
@@ -358,9 +359,7 @@ za:
 - komunikacja z komputerem operatora (odbieranie/wysyłanie ramek danych).
 
 Szczegóły na temat połączeń przewodów i elementów projektu znajduje się w sekcji [hardware](#hardware) (wykorzystana została płytka Arduino UNO, ale mikrokontroler jest
-programowany bezpośrednio):
-
-**TODO**
+programowany bezpośrednio).
 
 ## Głowica
 
@@ -381,8 +380,8 @@ technologii 3D.
 
 # Skanowanie 3D
 
-Skanowania 3D polega na zbieraniu danych z kilku źródeł nie-3D i łączeniu ich
-w taki sposób, aby otrzymać informację 3D o otoczeniu.
+Skanowania 3D polega na zbieraniu danych z kilku źródeł i łączeniu ich
+w taki sposób, aby otrzymać informację o otoczeniu.
 
 Najważniejszym urządzeniem jest lidar, który po uruchomieniu jest w stanie
 generować kilka chmur punktów na sekundę. Punkty reprezentowane są w postaci
@@ -410,7 +409,7 @@ Pomiary IMU i zadane pozycje serwomechanizmu są gromadzone wraz z czasem, w
 którym miały miejsce. Do każdej odebranej chmury punktów lidaru dobierany jest
 najlepiej pasujący czasowo pomiar IMU lub zadana pozycja serwomechanizmu.
 Metoda jaka zostanie obrana zależy od użytkownika (innymi słowy, to użytkownik
-decyduje, czy wykorzystywać IMU).
+decyduje, czy wykorzystywać IMU czy zadane pozycje serwomechanizmu).
 
 Następnie dokonywane są obliczenia, w efekcie których powstaje grupa gotowych
 punktów. Wypisywane są one na standardowe wyjście (stdout).
@@ -421,7 +420,7 @@ MPU-6050 dostarcza sześć 2-bajtowych zmiennoprzecinkowych wartości w każdym
 _surowym_ pomiarze. Aby zrozumieć dane, można je łatwo zwizualizować na wykresie.
 Będą one odpowiadały ruchom i obrotom urządzenia.
 
-Ffilm z wizualizacją](https://youtu.be/J4pH3LHojVM)
+[Film z wizualizacją](https://youtu.be/J4pH3LHojVM)
 
 **Przykładowy wykres:**
 
