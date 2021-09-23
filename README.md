@@ -7,9 +7,9 @@ przestrzeni w 3D z użyciem lidaru 2D.
 
 # Spis treści
 
-- [Galeria]()
-  - [3D]()
-  - [2D]()
+- [Galeria](#galeria)
+  - [3D](#3d)
+  - [2D](#2d)
 - [Submoduły]()
   - [lidar-tools\*]()
     - [sync\*]()
