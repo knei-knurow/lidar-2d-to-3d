@@ -13,3 +13,6 @@
 [submodule "lidar-tools"]
 	path = lidar-tools
 	url = https://github.com/knei-knurow/lidar-tools
+[submodule "lidar-stm32"]
+	path = lidar-stm32
+	url = https://github.com/knei-knurow/lidar-stm32
