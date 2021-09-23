@@ -53,15 +53,15 @@ przestrzeni w 3D z użyciem lidaru 2D.
 
 ## 3D
 
-![komputer](images/komputer-16324113767931.bmp)
+<img src="images/komputer-16324113767931.bmp" width=700>
 
-![ogrod](images/ogrod.bmp)
+<img src="images/ogrod.bmp" width=700>
 
-![ogrod](../../../Users/szymon/Documents/pokoj.bmp)
+<img src="images/pokoj.bmp" width=700>
 
-![pracownia](images/pracownia.bmp)
+<img src="images/pracownia.bmp" width=700>
 
-## ![capture](images/capture.bmp)
+<img src="images/capture.bmp" width=700>
 
 ## 2D
 
@@ -281,7 +281,7 @@ Tryb skanowania: **Sensitivity**
 Serwomechanizm odpowiada za obrót płaszczyzny, która jest skanowana przez lidar.
 Sterowane jest ono sygnałem PWM za pomocą mikrokontrolera.
 
-Wymaga własnego zasilania. Sygnał PWM nadawany jest przez mikrokontroler.
+Wymaga własnego zasilania.
 
 ## IMU
 
