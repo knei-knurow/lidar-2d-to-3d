@@ -43,7 +43,7 @@ przestrzeni w 3D z użyciem lidaru 2D.
   - [Hardware](#hardware)
   - [Software](#software)
     - [Parametry _lidar-tools/sync_](#parametry-lidar-toolssync)
-- [Materiały dodatkowe](#materiały-dodatkowe)
+- [Materiały](#materiały)
   - [Oprogramowanie pomocnicze](#oprogramowanie-pomocnicze)
   - [Przykłady chmur punktów](#przykłady-chmur-punktów)
 
