@@ -444,7 +444,7 @@ które mogą zostać zinterpretowane jako obrót obiektu.
 4. Lidar musi być podłączony do stabilnego źródła zasilania i do urządzenia
    operatora.
 
-TODO: Schemat
+![](images/sketch.png)
 
 ## Software
 
